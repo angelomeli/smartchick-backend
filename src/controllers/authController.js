@@ -8,10 +8,11 @@ async function login(req, res) {
     if (!email || !password) {
       return res.status(400).json({ success: false, message: 'Email et mot de passe requis' });
     }
-    const [rows] = await pool.query(
- 'SELECT * FROM smartchick_db.users WHERE email = ? AND is_active = 1', [email] )
- ;
-
+ const [rows] = await pool.query(
+            'SELECT * FROM defaultdb.users WHERE email = ? AND is_active = 1', 
+            [email]
+        );
+ 
     if (rows.length === 0) {
       return res.status(401).json({ success: false, message: 'Email ou mot de passe incorrect' });
     }
